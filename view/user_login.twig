@@ -1,0 +1,56 @@
+{% extends "main.twig" %}
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <br>
+            <br>
+            <div class="col-lg-3">
+                <h3 class="my-4" style="color: red;">Онлайн-магазин</h3>
+                {% if userid == NULL %}
+                    <h6 class="my-4">Для покупок новогодних открыток необходима регистрация на нашем сайте</h6>
+                {% else %}
+                    <h4 class="my-4">Обычный режим</h4>
+                    <h6 class="my-4">Обычный аккаунт</h6>
+                {% endif %}
+            </div>
+            <div class="col-lg-9">
+                <h1 class="text-lg-center">{{ title }}</h1
+                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                    <div class="card-header">
+                        <h3 class="text-center font-weight-light my-4">Вход на сайт</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="form-group">
+                                <label class="small mb-1" for="inputLogin">Логин</label>
+                                <input class="form-control py-4" id="inputLogin" type="text" placeholder="Введите имя пользователя" name="login" maxlength="30" autofocus="" required="">
+                            </div>
+                            <div class="form-group">
+                                <label class="small mb-1" for="inputPassword">Пароль</label>
+                                <input class="form-control py-4" id="inputPassword" type="password" placeholder="Введите пароль" name="password" maxlength="30" required="">
+                            </div>
+                            <div class="form-group mt-4 mb-0">
+                                <input type="submit" class="btn btn-primary btn-block" name="button" value="Войти">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <div class="small"><a href="index.php?class=user&method=regUser">Нет аккаунта ? Зарегистрируйтесь.</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+
+
+
+
+

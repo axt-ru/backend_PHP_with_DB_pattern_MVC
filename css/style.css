@@ -1,0 +1,8 @@
+body {
+  padding-top: 56px;
+}
+.text-lg-center {
+  color: red !important;
+  font-family: cursive !important;
+  padding: 10px 0;
+}

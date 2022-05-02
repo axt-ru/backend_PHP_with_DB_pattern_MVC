@@ -1,0 +1,117 @@
+{% extends "main.twig" %}
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+    <br>
+    <br>
+    <div class="col-lg-3">
+        <h1 class="my-4">Онлайн-магазин</h1>
+        {% if userid == NULL %}
+            <h6 class="my-4">Для покупок новогодних открыток необходима регистрация на нашем сайте</h6>
+        {% else %}
+            <h4 class="my-4">Обычный режим</h4>
+            <h6 class="my-4">Обычный аккаунт</h6>
+        {% endif %}
+    </div>
+    <div class="col-lg-9">
+        <h1 class="my-4">Корзина</h1>
+        <div style="clear:both"></div>
+        <br />
+        {% set sum = 0 %}
+        {% if products is empty %}
+
+        <tr>
+            <td colspan="5" align="center" class="my-4">В корзине пока нет товаров.</td>
+        </tr>
+
+        {% elseif num > 1 %}
+        <h3>Подробная информация</h3>
+        <div class="table-responsive">
+            <div align="right">
+                <a href="index.php?class=product&method=clearCart&user={{ user }}"><b>Очистить корзину</b></a>
+            </div>
+
+            <table class="table table-bordered">
+                <tr>
+                    <th width="30%">Название</th>
+                    <th width="10%" align="center">Количество</th>
+                    <th width="15%" align="center">Цена</th>
+                    <th width="25%" align="center">Всего</th>
+                    <th width="5%" align="center">Добавить</th>
+                    <th width="5%" align="center">Удалить</th>
+                </tr>
+                {% for product in products %}
+                <tr>
+                    <td>{{product.good_title}}</td>
+                    <td align="center">{{product.amount}}</td>
+                    <td align="center">{{product.price}} руб.</td>
+                    <td align="center">{{ product.amount * product.price }} руб.</td>
+                    <td align="center"><a href="index.php?class=product&method=addToCart&id={{ product.id_good }}&user={{ user }}"><span class="btn btn-primary mb-2">+</span></a></td>
+                    <td align="center"><a href="index.php?class=product&method=deleteFromCart&id={{ product.id_good }}&user={{ user }}"><span class="btn btn-primary mb-2">-</span></a></td>
+                </tr>
+                    {% set sum = sum + product.amount * product.price %}
+                {% endfor %}
+                <tr>
+                    <td colspan="3" align="right">Всего</td>
+                    <td align="center">{{sum}} руб.</td>
+                    <td></td>
+                </tr>
+            </table>
+            <form action="index.php?class=product&method=viewOrder&user={{ user }}" method="post" name="cart">
+                <div class="form-group mt-4 mb-0">
+                    <input type="submit" class="btn btn-primary btn-block" name="order" value="Оформить заказ"/>
+                </div>
+                <br>
+            </form>
+        </div>
+            {% else %}
+                <h3>Подробная информация</h3>
+                <div class="table-responsive">
+                    <div align="right">
+                        <a href="index.php?class=product&method=clearCart&user={{user}}"><b>Очистить корзину</b></a>
+                    </div>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th width="30%">Название</th>
+                            <th width="10%" align="center">Количество</th>
+                            <th width="15%" align="center">Цена</th>
+                            <th width="25%" align="center">Всего</th>
+                            <th width="5%" align="center">Добавить</th>
+                            <th width="5%" align="center">Удалить</th>
+                        </tr>
+                            <tr>
+                                <td>{{products[0].good_title}}</td>
+                                <td align="center">{{products[0].amount}}</td>
+                                <td align="center">{{products[0].price}} руб.</td>
+                                <td align="center">{{products[0].amount * products[0].price}} руб.</td>
+                                <td align="center"><a href="index.php?class=product&method=addToCart&id={{products[0].id_good }}&user={{user}}"><span class="btn btn-primary mb-2">+</span></a></td>
+                                <td align="center"><a href="index.php?class=product&method=deleteFromCart&id={{products[0].id_good }}&user={{user}}"><span class="btn btn-primary mb-2">-</span></a></td>
+                            </tr>
+                        <tr>
+                            <td colspan="3" align="right">Всего</td>
+                            <td align="center">{{products[0].amount * products[0].price}} руб.</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <form action="index.php?class=product&method=viewOrder&user={{user}}" method="post" name="cart">
+                        <div class="form-group mt-4 mb-0">
+                            <input type="submit" class="btn btn-primary btn-block" name="order" value="Оформить заказ"/>
+                        </div>
+                        <br>
+                    </form>
+                </div>
+        {% endif %}
+    </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+
+

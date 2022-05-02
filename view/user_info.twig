@@ -1,0 +1,82 @@
+{% extends "main.twig" %}
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <br>
+            <br>
+            <div class="col-lg-3">
+                <h1 class="my-4">Личный кабинет</h1>
+                {% if user is empty %}
+                    <h4 class="my-4">Онлайн</h4>
+                    <h6 class="my-4">Пользователь: demo</h6>
+                {% else %}
+                    <h4 class="my-4">Обычный режим</h4>
+                    <h6 class="my-4">Пользователь: {{username}}</h6>
+                    <h6 class="my-4">Логин: {{userlogin}}</h6>
+                {% endif %}
+            </div>
+            <div class="col-lg-9">
+                <h1 class="my-4">Список заказов</h1>
+                <div style="clear:both"></div>
+                <br />
+                {% set sum = 0 %}
+                {% if products is empty %}
+                    <tr>
+                        <td colspan="5" align="center" class="my-4">Вы пока не оформили ни одного заказа.</td>
+                    </tr>
+                {% elseif num > 1 %}
+                    <h3>Подробная информация</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th width="40%">Номер заказа</th>
+                                <th width="10%" align="center">Количество</th>
+                                <th width="15%" align="center">Статус</th>
+                                <th width="25%" align="center">Дата</th>
+                            </tr>
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{product.id_order}}</td>
+                                    <td align="center">{{product.amount}}</td>
+                                    <td align="center">{{product.id_order_status}}</td>
+                                    <td align="center">{{product.datetime_create}}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <h3>Подробная информация</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th width="40%">Номер заказа</th>
+                                <th width="10%" align="center">Количество</th>
+                                <th width="15%" align="center">Статус</th>
+                                <th width="25%" align="center">Дата</th>
+                            </tr>
+                            <tr>
+                                <td>{{products[0].id_order}}</td>
+                                <td align="center">{{products[0].amount}}</td>
+                                <td align="center">{{products[0].id_order_status}}</td>
+                                <td align="center">{{products[0].datetime_create}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+
+
+
+
+
+

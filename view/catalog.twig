@@ -1,0 +1,69 @@
+{% extends "main.twig" %}
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <br>
+        <br>
+        <div class="col-lg-3">
+            <h3 class="my-4" style="color: red;">Онлайн-магазин</h3>
+            {% if userid == NULL %}
+                <h6 class="my-4">Для покупок новогодних открыток необходима регистрация на нашем сайте</h6>
+            {% else %}
+                <h4 class="my-4">Обычный режим</h4>
+                <h6 class="my-4">Обычный аккаунт</h6>
+            {% endif %}
+        </div>
+    <div class="col-lg-9">
+        <h2 class="text-lg-center">{{ title }}</h2>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a href="index.php?class=product&method=viewItem&id={{product.id}}"><img class="card-img-top" src="{{"img/products/small/" ~ product.id ~ ".jpg"}}" alt="" width="100"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">{{product.price}} руб.</h4>
+                        <a href="index.php?class=product&method=viewItem&id={{product.id}}">{{product.title}}</a>
+                        <p>{{product.short_description}}</p>
+                        <br>
+                        <h6>{{product.reviews_count}} отзывов</h6>
+                        <form method="post" action="index.php?class=product&method=addToCart&id={{product.id}}">
+                            <input type="hidden" name="quantity" value="1"/>
+                            <input type="hidden" name="hidden_name" value="{{product.title}}" />
+                            <input type="hidden" name="hidden_price" value="{{product.price}}" />
+                            <input type="hidden" name="hidden_id" value="{{product.id}}" />
+                            <input type="submit" name="add_to_cart" value="Купить" class="btn btn-primary mb-2" />
+                        </form>
+                    </div>
+                    {% if      product.reviews_score == 0 %}
+                        {% set score = "☆ ☆ ☆ ☆ ☆" %}
+                    {% elseif  product.reviews_score == 1 %}
+                        {% set score = "★ ☆ ☆ ☆ ☆" %}
+                    {% elseif  product.reviews_score == 2 %}
+                        {% set score = "★ ★ ☆ ☆ ☆" %}
+                    {% elseif  product.reviews_score == 3 %}
+                        {% set score = "★ ★ ★ ☆ ☆" %}
+                    {% elseif  product.reviews_score == 4 %}
+                        {% set score = "★ ★ ★ ★ ☆" %}
+                    {% elseif  product.reviews_score == 5 %}
+                        {% set score = "★ ★ ★ ★ ★" %}
+                    {% endif %}
+                    <div class="card-footer">
+                        <span class="text-warning">{{score}}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+    {{ parent() }}
+{% endblock %}
+
+
+

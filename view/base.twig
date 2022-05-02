@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Онлайн-магазин открыток</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/webshop.css" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper" id="wrapper">
+        <div id="header">
+           {% block header %}
+               <p>А это  ! base.twig</p>
+           {% endblock %}
+        </div>
+        <div id="body">
+           {% block body %}
+               <p>А это боди ! base.twig</p>
+           {% endblock %}
+        </div>
+        <div id="footer">
+            {% block footer %}
+                <footer class="py-5 bg-dark">
+                    <div class="container">
+                        <p class="m-0 text-left text-white">Магазин новогодних открыток © 2022 г. </p>
+                    </div>
+                </footer>
+            {% endblock %}
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
